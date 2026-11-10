@@ -6,7 +6,7 @@
   --page:#F3F6FA;
   --panel:#DDEBF7;
   --line:#9CC2E5;
-  --focus-content-max-width:1120px;
+  --focus-content-max-width:100%;
   --bar-height:38px;
   font-family:"Segoe UI",Arial,sans-serif;
 }
@@ -23,7 +23,7 @@ body { min-width:320px; overflow:hidden; background:var(--page); }
 }
 .topbar { position:relative; z-index:10; }
 .bar-inner,.footer-inner {
-  width:min(var(--focus-content-max-width),100%);
+  width:100%;
   height:100%; margin:0 auto;
   background:var(--header-bg);
   border-left:1px solid var(--line);
@@ -35,7 +35,7 @@ body { min-width:320px; overflow:hidden; background:var(--page); }
 .footer-inner { background:var(--footer-bg); border-top:1px solid var(--line); }
 .main-area { min-height:0; overflow:auto; background:var(--page); display:flex; justify-content:center; }
 .content-frame {
-  width:min(var(--focus-content-max-width),100%); min-height:100%;
+  width:100%; min-height:100%;
   background:var(--panel); border-left:1px solid var(--line);
   border-right:1px solid var(--line);
   border-radius:0;
@@ -76,8 +76,7 @@ body { min-width:320px; overflow:hidden; background:var(--page); }
 .settings-branch:focus-within > .settings-submenu { display:block; }
 .settings-separator { height:1px; margin:5px 3px; background:#e2e8f0; }
 .palette-submenu { min-width:252px; padding:8px; }
-.width-submenu { min-width:190px; }
-.width-choice[aria-checked="true"],.palette-option[aria-checked="true"] { background:#edf1fa; border-color:#9aabcc; }
+.palette-option[aria-checked="true"] { background:#edf1fa; border-color:#9aabcc; }
 .palette-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
 .palette-option {
   display:flex; align-items:center; gap:7px; min-height:49px; padding:5px;

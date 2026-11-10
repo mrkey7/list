@@ -90,33 +90,6 @@
     });
     paletteBranch.submenu.append(paletteGrid);
 
-    const widthBranch=makeBranch("Lebar Area Isi","Atur lebar area isi");
-    widthBranch.submenu.classList.add("width-submenu");
-    const widthChoices=document.createElement("div");
-    widthChoices.className="width-choice-list";
-    const widthPresets=[
-      {value:"standard",label:"Standar · 1120 px"},
-      {value:"full",label:"Penuh · mengikuti layar"}
-    ];
-    function setContentWidth(value,persist=true) {
-      if(value!=="standard"&&value!=="full") return false;
-      root.style.setProperty("--focus-content-max-width",value==="full"?"100vw":"1120px");
-      widthChoices.querySelectorAll("[data-content-width]").forEach(option=>
-        option.setAttribute("aria-checked",String(option.dataset.contentWidth===value)));
-      if(persist) try {localStorage.setItem("ujian-harian-content-width",value);} catch (_) {}
-      return true;
-    }
-    widthPresets.forEach(preset=>{
-      const option=document.createElement("button");
-      option.type="button"; option.className="settings-item width-choice";
-      option.dataset.contentWidth=preset.value;
-      option.setAttribute("role","menuitemradio"); option.setAttribute("aria-checked","false");
-      option.textContent=preset.label;
-      option.addEventListener("click",()=>{setContentWidth(preset.value);closeMenu();trigger.focus();});
-      widthChoices.append(option);
-    });
-    widthBranch.submenu.append(widthChoices);
-
     const separator=document.createElement("div");
     separator.className="settings-separator";
     separator.setAttribute("role","separator");
@@ -129,7 +102,7 @@
       refreshUrl.searchParams.set("__refresh",String(Date.now()));
       window.location.assign(refreshUrl.href);
     });
-    menu.append(paletteBranch.branch,widthBranch.branch,separator,refreshOption);
+    menu.append(paletteBranch.branch,separator,refreshOption);
 
     function closeMenu() {
       menu.hidden=true;
@@ -147,15 +120,12 @@
       if(event.key==="Escape"&&!menu.hidden){closeMenu();trigger.focus();}
     });
 
-    let selectedPalette="blue",selectedContentWidth="standard";
+    let selectedPalette="blue";
     try {
       const savedPalette=localStorage.getItem("ujian-harian-palette-style");
-      const savedContentWidth=localStorage.getItem("ujian-harian-content-width");
-      if(savedContentWidth==="full") selectedContentWidth="full";
       if(palettes.some(item=>item.value===savedPalette)) selectedPalette=savedPalette;
     } catch (_) {}
     setPalette(selectedPalette,false);
-    setContentWidth(selectedContentWidth,false);
     return picker;
   }
 
